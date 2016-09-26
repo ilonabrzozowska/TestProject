@@ -21,6 +21,9 @@ mainApp.controller('userController', function ($scope) {
     $scope.maxSize = 5;
     $scope.numbersPerPage = [5, 10, 15, 20];
 
+    $scope.sortType     = 'id';
+    $scope.sortReverse  = false;
+
     $scope.numPages = function () {
         return Math.ceil($scope.users.length / $scope.numPerPage);
     };
