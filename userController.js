@@ -1,5 +1,17 @@
-/*global angular */
+/*global angular, window */
 var mainApp = angular.module("mainApp", ['ui.bootstrap']);
+
+mainApp.filter('startFrom', function () {
+    'use strict';
+    return function (input, start) {
+        if (input) {
+            start = +start;
+            return input.slice(start);
+        }
+        return [];
+    };
+});
+
 mainApp.controller('userController', function ($scope) {
     'use strict';
 
@@ -10,17 +22,14 @@ mainApp.controller('userController', function ($scope) {
     $scope.numbersPerPage = [5, 10, 15, 20];
 
     $scope.numPages = function () {
-        return Math.ceil($scope.todos.length / $scope.numPerPage);
-    };
-    $scope.numPages = function () {
         return Math.ceil($scope.users.length / $scope.numPerPage);
     };
 
-    $scope.$watch('currentPage + numPerPage', function () {
-        var begin = (($scope.currentPage - 1) * $scope.numPerPage), end = begin + $scope.numPerPage;
-
-        $scope.filteredUsers = $scope.users.slice(begin, end);
-    });
+    $scope.filter = function () {
+        window.setTimeout(function () {
+            $scope.numPages = Math.ceil($scope.filtered.length / $scope.numPerPage);
+        }, 10);
+    };
 
     $scope.users = [
         {
@@ -72,4 +81,16 @@ mainApp.controller('userController', function ($scope) {
             createdAt: "2016-10-09"
         }
     ];
+
+    $scope.generateUsers = function () {
+        var i, element;
+        for (i = 7; i < 1000; i += 1) {
+            element = {id: i, username: "user " + i, postTitle: "Title number " + i, views: (Math.floor(Math.random() * 5000)),
+                           likes: (Math.floor(Math.random() * 1000)), createdAt: "2016-01-01"};
+            $scope.users.push(element);
+        }
+    };
+
+    $scope.generateUsers();
+
 });
