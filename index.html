@@ -13,6 +13,8 @@
 <body>
     <div ng-app="mainApp" ng-controller="userController">
         
+        <h1>Hi {{activeUser}}!</h1>
+        
         <p>Select max number of rows per page:</p> 
         <select ng-model="numPerPage" ng-options="x for x in numbersPerPage"></select>
         
@@ -63,7 +65,8 @@
             </thead>
             <tbody>
                 <tr ng-repeat="user in filteredUsers = (users | filter:searchText) | startFrom:(currentPage-1)*numPerPage
-                               | limitTo:numPerPage | orderBy:sortType:sortReverse">
+                               | limitTo:numPerPage | orderBy:sortType:sortReverse"
+                    ng-class="{selected: user.username === activeUser}">
                     <td>{{user.id}}</td>
                     <td>{{user.username}}</td>
                     <td>{{user.postTitle}}</td>
