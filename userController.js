@@ -30,7 +30,9 @@ mainApp.controller('userController', function ($scope) {
 
     $scope.filter = function () {
         window.setTimeout(function () {
-            $scope.numPages = Math.ceil($scope.filtered.length / $scope.numPerPage);
+            $scope.numPages = function () {
+                return Math.ceil($scope.filteredUsers.length / $scope.numPerPage);
+            };
         }, 10);
     };
 
@@ -96,4 +98,26 @@ mainApp.controller('userController', function ($scope) {
 
     $scope.generateUsers();
 
+    $scope.addUser = function () {
+        var id = $scope.users.length + 1,
+            user = {
+                id: id,
+                username: $scope.username,
+                postTitle: $scope.postTitle,
+                views: $scope.views,
+                likes: $scope.likes,
+                createdAt: $scope.createdAt
+            };
+        $scope.username = '';
+        $scope.postTitle = '';
+        $scope.views = '';
+        $scope.likes = '';
+        $scope.createdAt = '';
+        try {
+            $scope.users.push(user);
+            window.alert("Success!");
+        } catch (x) {
+            window.alert("Something goes wrong :(");
+        }
+    };
 });

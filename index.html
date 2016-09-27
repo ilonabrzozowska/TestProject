@@ -72,12 +72,20 @@
                     <td>{{user.createdAt}}</td>
                 </tr>
             </tbody>
-
         </table>
+        
         <pagination data-boundary-links="true" data-num-pages="numPages()" data-current-page="currentPage" 
                     max-size="maxSize" class="pagination-small" 
                     data-previous-text="&laquo;" data-next-text="&raquo;">
         </pagination>
+        <form ng-submit="addUser()">
+            <input type="text" ng-model="username" placeholder="Type username"> <br>
+            <input type="text" ng-model="postTitle" placeholder="Type post title"> <br>
+            <input type="number" ng-model="views" placeholder="Type number of views"> <br>
+            <input type="number" ng-model="likes" placeholder="Type number of likes"> <br>
+            <input type="datetime" ng-model="createdAt" placeholder="Type date (yyyy-mm-dd)"> <br>
+            <input type="submit" value="Add New">            
+        </form>
     </div>
     <script src="userController.js"></script>
 </body>
